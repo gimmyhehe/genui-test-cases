@@ -1,0 +1,16 @@
+{
+  "name": "genui-sdk-test-cases",
+  "version": "1.0.0",
+  "description": "GenUI SDK Test Cases",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"pnpm -F genui-sdk-playground-web dev\" \"pnpm -F genui-sdk-server dev\""
+  },
+  "keywords": [],
+  "author": "Gimmyhehe",
+  "packageManager": "pnpm@10.12.1",
+  "devDependencies": {
+    "@babel/parser": "^7.28.3",
+    "concurrently": "^9.1.2"
+  }
+}
