@@ -111,7 +111,7 @@ export function createOpenAICustomFetch(config: OpenAIConfig): CustomRequest {
               // 创建流式请求
               const stream = await openai.chat.completions.create(
                 {
-                  model: 'deepseek/deepseek-reasoner',
+                  model: 'deepseek-v3.2',
                   messages: currentMessages,
                   temperature,
                   tools: tools.length > 0 ? tools : undefined,
@@ -235,5 +235,5 @@ export function createOpenAICustomFetch(config: OpenAIConfig): CustomRequest {
  */
 export const defaultCustomFetch = createOpenAICustomFetch({
   apiKey: import.meta.env.VITE_OPENAI_API_KEY || 'sk-trial',
-  baseURL: 'http://localhost:3101/',
+  baseURL: 'http://localhost:3100/',
 });

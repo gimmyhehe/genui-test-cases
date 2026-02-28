@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@opentiny/genui-sdk-vue": "1.0.0-alpha.1",
+    "@opentiny/genui-sdk-vue": "1.0.1-beta.1",
     "@opentiny/tiny-robot": "0.3.3",
     "@opentiny/tiny-robot-kit": "0.3.3",
     "@opentiny/tiny-robot-svgs": "0.3.3",
