@@ -8,9 +8,9 @@ body:
       value: |
         Please fill out the following carefully in order to better fix the problem.
   - type: dropdown
-    id: GenUI SDK Packages
+    id: genui-sdk-packages
     attributes:
-      label: Version
+      label: GenUI SDK Packages
       description: |
         ### **Please select the packages that are affected by the issue.**
       multiple: true
