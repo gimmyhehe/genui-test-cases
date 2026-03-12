@@ -4,8 +4,8 @@
 
 Thank you for your interest in contributing to the GenUI SDK open source project! There are many ways to contribute—you can choose one or more based on your strengths and interests:
 
-- [Report new bugs](https://github.com/opentiny/genui-test-cases/issues/new?template=bug-report.yml)
-- Provide more details for [existing bugs](https://github.com/opentiny/genui-test-cases/labels/bug), such as screenshots, detailed reproduction steps, or links to minimal reproducible demos
+- [Report new bugs](https://github.com/gimmyhehe/genui-test-cases/issues/new?template=bug-report.yml)
+- Provide more details for [existing bugs](https://github.com/gimmy/genui-test-cases/labels/bug), such as screenshots, detailed reproduction steps, or links to minimal reproducible demos
 - Fix typos or improve documentation
 - Fix bugs
 - Implement new features
