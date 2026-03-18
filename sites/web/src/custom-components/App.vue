@@ -4,7 +4,7 @@
   
   <script setup lang="ts">
   import { GenuiChat } from '@opentiny/genui-sdk-vue';
-  import { ProductCard, UserProfile } from './index';
+  import ProductCard from './product-card.vue';
   
   const url = 'https://your-chat-backend/api';
   
