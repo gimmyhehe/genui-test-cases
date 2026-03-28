@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Thermal mug product image">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c2d12"/>
+      <stop offset="100%" stop-color="#fb923c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <circle cx="200" cy="760" r="220" fill="#ffffff" fill-opacity="0.08"/>
+  <rect x="430" y="220" width="340" height="480" rx="55" fill="#f8fafc"/>
+  <rect x="470" y="290" width="260" height="330" rx="30" fill="#fdba74"/>
+  <rect x="500" y="180" width="200" height="60" rx="18" fill="#475569"/>
+  <path d="M780 340 C860 340, 890 430, 820 490" fill="none" stroke="#f8fafc" stroke-width="26" stroke-linecap="round"/>
+  <text x="600" y="815" text-anchor="middle" fill="#fff7ed" font-family="Avenir Next, sans-serif" font-size="42" font-weight="700">Thermal Mug</text>
+</svg>

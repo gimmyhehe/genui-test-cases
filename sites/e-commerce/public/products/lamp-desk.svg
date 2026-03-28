@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Desk lamp product image">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#4338ca"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <circle cx="600" cy="360" r="260" fill="#fde68a" fill-opacity="0.25"/>
+  <rect x="350" y="710" width="500" height="44" rx="20" fill="#0f172a"/>
+  <rect x="560" y="470" width="80" height="250" rx="30" fill="#e2e8f0"/>
+  <path d="M490 470 L650 300 L710 360 L550 530 Z" fill="#c7d2fe"/>
+  <path d="M690 250 L840 370 L700 500 L550 380 Z" fill="#e5e7eb" stroke="#a5b4fc" stroke-width="8"/>
+  <circle cx="700" cy="370" r="46" fill="#fde68a"/>
+  <text x="600" y="825" text-anchor="middle" fill="#e0e7ff" font-family="Avenir Next, sans-serif" font-size="42" font-weight="700">Desk Lamp</text>
+</svg>

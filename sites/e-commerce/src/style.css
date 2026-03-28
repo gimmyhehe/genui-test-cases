@@ -1,0 +1,98 @@
+:root {
+  --page-bg: #f5f8fb;
+  --bg: #ffffff;
+  --card: #ffffff;
+  --line: #d6e2ef;
+  --title: #0f172a;
+  --text: #223046;
+  --muted: #5f7087;
+  --accent: #0f9f93;
+  --accent-soft: #ddf8f4;
+  --danger: #e11d48;
+  --border: var(--line);
+  --text-h: var(--title);
+  --code-bg: #edf3fa;
+  --accent-bg: #ddf8f4;
+  --accent-border: #99e9df;
+  --social-bg: #f2f7fb;
+  --shadow:
+    0 14px 34px rgba(10, 37, 64, 0.08), 0 2px 8px rgba(10, 37, 64, 0.04);
+  --radius-lg: 18px;
+  --radius-md: 12px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Avenir Next', 'PingFang SC', 'Noto Sans SC', 'Helvetica Neue', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 5% -5%, #d1f6ff 0%, transparent 30%),
+    radial-gradient(circle at 100% 0%, #d6f9e4 0%, transparent 30%),
+    var(--page-bg);
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+#app {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  background: color-mix(in oklab, var(--card) 95%, #f5f8fb 5%);
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  min-height: 100svh;
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.section-title {
+  margin: 0;
+  color: var(--title);
+  font-size: clamp(24px, 3vw, 32px);
+  line-height: 1.2;
+}
+
+.section-desc {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.product-grid {
+  margin-top: 20px;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.empty-state {
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-md);
+  padding: 26px 20px;
+  text-align: center;
+  color: var(--muted);
+  background: #fcfeff;
+}
