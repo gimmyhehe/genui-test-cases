@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vue-tsc -b && vite build",
     "dev:alpha": "vite --mode alpha",
     "build:alpha": "vue-tsc -b && vite build --mode alpha-prod",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.27.1",
-    "@opentiny/genui-sdk-vue": "1.1.0-alpha.2",
+    "@opentiny/genui-sdk-vue": "1.1.0-alpha.3",
     "@opentiny/tiny-robot": "0.3.3",
     "@opentiny/tiny-robot-kit": "0.3.3",
     "@opentiny/tiny-robot-svgs": "0.3.3",

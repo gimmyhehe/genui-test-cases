@@ -3,9 +3,9 @@ import { ref } from 'vue';
 import { GenuiChat, GenuiConfigProvider } from '@opentiny/genui-sdk-vue';
 
 const url = 'http://localhost:3100/chat/completions';
-const model = ref('deepseek-v3.2');
+const model = ref('deepseek-r1-250528');
 const temperature = ref(0.7);
-const theme = ref<'dark' | 'lite' | 'light'>('dark');
+const theme = ref<'dark' | 'lite' | 'light'>('light');
 </script>
 
 <template>

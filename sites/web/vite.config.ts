@@ -23,6 +23,9 @@ export default defineConfig(({ command }) => {
   }
 
   return {
+    server: {
+      port: 5177,
+    },
     envDir: './env',
     plugins,
   };
