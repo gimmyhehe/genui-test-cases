@@ -6,11 +6,14 @@ const url = 'http://localhost:3100/chat/completions';
 const model = ref('deepseek-r1-250528');
 const temperature = ref(0.7);
 const theme = ref<'dark' | 'lite' | 'light'>('light');
+const chatConfig = {
+  showThinkingResult: false,
+}
 </script>
 
 <template>
   <GenuiConfigProvider :theme="theme">
-    <GenuiChat :url="url" :model="model" :temperature="temperature">
+    <GenuiChat :url="url" :model="model" :temperature="temperature" :chat-config="chatConfig" >
       <template #empty>
         <div class="empty-text">欢迎使用生成式UI</div>
       </template>
