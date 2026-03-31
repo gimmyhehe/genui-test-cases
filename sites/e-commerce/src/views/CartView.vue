@@ -234,7 +234,7 @@ async function submitOrder() {
   border: 0;
   border-radius: 10px;
   color: #fff;
-  background: linear-gradient(135deg, #0f9f93 0%, #0ea5e9 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
   padding: 11px 14px;
   font-weight: 600;
   cursor: pointer;
@@ -249,7 +249,7 @@ async function submitOrder() {
   display: inline-block;
   margin-top: 12px;
   font-size: 13px;
-  color: #0369a1;
+  color: #6d28d9;
   text-decoration: none;
 }
 

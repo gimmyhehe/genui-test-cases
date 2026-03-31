@@ -1,19 +1,17 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { fetchAllProducts } from '../api'
 import { ProductCard } from '../components'
-import { useCart } from '../composables'
+import { useCart, useCartNotice } from '../composables'
 import type { Product } from '../types'
 
 const router = useRouter()
 const { addToCart } = useCart()
+const { showCartNotice } = useCartNotice()
 
 const loading = ref(true)
 const featured = ref<Product[]>([])
-const toast = ref('')
-
-let toastTimer: ReturnType<typeof window.setTimeout> | null = null
 
 onMounted(async () => {
   try {
@@ -24,23 +22,13 @@ onMounted(async () => {
   }
 })
 
-onUnmounted(() => {
-  if (toastTimer) {
-    window.clearTimeout(toastTimer)
-  }
-})
-
 function goDetail(product: Product) {
   router.push(`/products/${product.id}`)
 }
 
 function quickAdd(product: Product) {
   addToCart(product, 1)
-  toast.value = `已加入购物车：${product.title}`
-  if (toastTimer) window.clearTimeout(toastTimer)
-  toastTimer = window.setTimeout(() => {
-    toast.value = ''
-  }, 1600)
+  showCartNotice(product.title)
 }
 </script>
 
@@ -88,10 +76,6 @@ function quickAdd(product: Product) {
       />
     </div>
   </section>
-
-  <Transition name="toast">
-    <div v-if="toast" class="toast">{{ toast }}</div>
-  </Transition>
 </template>
 
 <style scoped>
@@ -108,8 +92,8 @@ function quickAdd(product: Product) {
   padding: 5px 10px;
   border-radius: 999px;
   font-size: 12px;
-  color: #0f766e;
-  background: #ccfbf1;
+  color: #5b21b6;
+  background: #ede9fe;
 }
 
 .hero__title {
@@ -134,7 +118,7 @@ function quickAdd(product: Product) {
 
 .hero__primary {
   color: #ffffff;
-  background: linear-gradient(135deg, #0f9f93 0%, #0ea5e9 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
 }
 
 .hero__ghost {
@@ -147,7 +131,7 @@ function quickAdd(product: Product) {
   border-radius: 12px;
   border: 1px solid var(--line);
   padding: 16px;
-  background: linear-gradient(180deg, #f8fdff 0%, #f0f9ff 100%);
+  background: linear-gradient(180deg, #faf5ff 0%, #f5f3ff 100%);
   display: grid;
   gap: 12px;
   align-content: center;
@@ -170,30 +154,6 @@ function quickAdd(product: Product) {
 
 .featured {
   margin-top: 28px;
-}
-
-.toast-enter-active,
-.toast-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.toast-enter-from,
-.toast-leave-to {
-  opacity: 0;
-  transform: translateY(8px);
-}
-
-.toast {
-  position: fixed;
-  left: 50%;
-  bottom: 24px;
-  transform: translateX(-50%);
-  z-index: 30;
-  padding: 10px 16px;
-  border-radius: 999px;
-  color: #fff;
-  background: #0f172a;
-  font-size: 13px;
 }
 
 @media (max-width: 900px) {

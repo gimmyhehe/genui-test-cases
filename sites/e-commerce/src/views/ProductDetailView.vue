@@ -2,13 +2,14 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { fetchProductById } from '../api'
-import { useCart } from '../composables'
+import { useCart, useCartNotice } from '../composables'
 import { MOCK_PRODUCTS } from '../mock'
 import type { Product } from '../types'
 
 const route = useRoute()
 const router = useRouter()
 const { addToCart } = useCart()
+const { showCartNotice } = useCartNotice()
 
 const loading = ref(true)
 const product = ref<Product | null>(null)
@@ -43,6 +44,7 @@ function formatPrice(price: number) {
 function addCurrentProduct() {
   if (!product.value) return
   addToCart(product.value, 1)
+  showCartNotice(product.value.title)
 }
 
 function openOtherProduct(id: string) {
@@ -128,8 +130,8 @@ function openOtherProduct(id: string) {
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 12px;
-  color: #0c4a6e;
-  background: #e0f2fe;
+  color: #4c1d95;
+  background: #ede9fe;
 }
 
 .detail__price {
@@ -174,7 +176,7 @@ function openOtherProduct(id: string) {
   border-radius: 10px;
   font-weight: 600;
   color: #fff;
-  background: linear-gradient(135deg, #0f9f93 0%, #0ea5e9 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
   cursor: pointer;
 }
 
@@ -184,7 +186,7 @@ function openOtherProduct(id: string) {
 }
 
 .detail__link {
-  color: #0c4a6e;
+  color: #6d28d9;
   text-decoration: none;
   font-size: 14px;
 }

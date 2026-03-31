@@ -4,9 +4,9 @@ import type { Order } from '../types'
 const STORAGE_KEY = 'ecommerce-demo-orders-v1'
 
 function loadFromStorage(): Order[] {
-  if (typeof sessionStorage === 'undefined') return []
+  if (typeof localStorage === 'undefined') return []
   try {
-    const raw = sessionStorage.getItem(STORAGE_KEY)
+    const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) return []
     const parsed = JSON.parse(raw) as unknown
     if (!Array.isArray(parsed)) return []
@@ -22,7 +22,7 @@ watch(
   orders,
   (v) => {
     try {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(v))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(v))
     } catch {
       /* ignore */
     }

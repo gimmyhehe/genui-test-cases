@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { Product } from '../types'
 
 export interface CartLine {
@@ -6,7 +6,57 @@ export interface CartLine {
   quantity: number
 }
 
-const lines = ref<CartLine[]>([])
+const STORAGE_KEY = 'ecommerce-demo-cart-v2'
+
+function isProduct(value: unknown): value is Product {
+  if (!value || typeof value !== 'object') return false
+  const p = value as Record<string, unknown>
+  return (
+    typeof p.id === 'string' &&
+    typeof p.title === 'string' &&
+    typeof p.price === 'number' &&
+    typeof p.image === 'string' &&
+    typeof p.description === 'string' &&
+    Array.isArray(p.tags) &&
+    typeof p.rating === 'number' &&
+    typeof p.ratingCount === 'number' &&
+    typeof p.inStock === 'boolean' &&
+    typeof p.badgeText === 'string'
+  )
+}
+
+function loadFromStorage(): CartLine[] {
+  if (typeof window === 'undefined') return []
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY)
+    if (!raw) return []
+    const parsed = JSON.parse(raw) as unknown
+    if (!Array.isArray(parsed)) return []
+    return parsed.filter((item): item is CartLine => {
+      if (!item || typeof item !== 'object') return false
+      const line = item as Record<string, unknown>
+      return isProduct(line.product) && typeof line.quantity === 'number' && line.quantity > 0
+    })
+  } catch {
+    return []
+  }
+}
+
+const lines = ref<CartLine[]>(loadFromStorage())
+
+if (typeof window !== 'undefined') {
+  watch(
+    lines,
+    (value) => {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
+      } catch {
+        /* ignore localStorage errors */
+      }
+    },
+    { deep: true },
+  )
+}
 
 export function useCart() {
   const totalCount = computed(() =>

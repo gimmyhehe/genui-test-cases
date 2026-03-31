@@ -3,11 +3,12 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { fetchAllProducts } from '../api'
 import { ProductCard } from '../components'
-import { useCart } from '../composables'
+import { useCart, useCartNotice } from '../composables'
 import type { Product } from '../types'
 
 const router = useRouter()
 const { addToCart } = useCart()
+const { showCartNotice } = useCartNotice()
 
 const loading = ref(true)
 const allProducts = ref<Product[]>([])
@@ -50,6 +51,7 @@ function openProduct(product: Product) {
 
 function addProduct(product: Product) {
   addToCart(product, 1)
+  showCartNotice(product.title)
 }
 </script>
 
@@ -125,7 +127,7 @@ function addProduct(product: Product) {
 
 .products-header__search:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px #d1fae5;
+  box-shadow: 0 0 0 3px #ede9fe;
 }
 
 .products-header__count {
@@ -151,9 +153,9 @@ function addProduct(product: Product) {
 }
 
 .tag-chip--active {
-  border-color: #0ea5e9;
-  color: #0c4a6e;
-  background: #e0f2fe;
+  border-color: #8b5cf6;
+  color: #4c1d95;
+  background: #ede9fe;
 }
 
 @media (max-width: 880px) {

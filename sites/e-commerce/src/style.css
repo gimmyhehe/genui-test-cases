@@ -1,22 +1,22 @@
 :root {
-  --page-bg: #f5f8fb;
+  --page-bg: #f6f2ff;
   --bg: #ffffff;
   --card: #ffffff;
-  --line: #d6e2ef;
-  --title: #0f172a;
-  --text: #223046;
-  --muted: #5f7087;
-  --accent: #0f9f93;
-  --accent-soft: #ddf8f4;
+  --line: #e6ddff;
+  --title: #21113d;
+  --text: #3d2f56;
+  --muted: #73668d;
+  --accent: #7c3aed;
+  --accent-soft: #f0eaff;
   --danger: #e11d48;
   --border: var(--line);
   --text-h: var(--title);
-  --code-bg: #edf3fa;
-  --accent-bg: #ddf8f4;
-  --accent-border: #99e9df;
-  --social-bg: #f2f7fb;
+  --code-bg: #f5f0ff;
+  --accent-bg: #f0eaff;
+  --accent-border: #ccb8ff;
+  --social-bg: #f9f6ff;
   --shadow:
-    0 14px 34px rgba(10, 37, 64, 0.08), 0 2px 8px rgba(10, 37, 64, 0.04);
+    0 14px 34px rgba(66, 35, 125, 0.11), 0 2px 8px rgba(66, 35, 125, 0.05);
   --radius-lg: 18px;
   --radius-md: 12px;
 }
@@ -37,8 +37,8 @@ body {
   font-family: 'Avenir Next', 'PingFang SC', 'Noto Sans SC', 'Helvetica Neue', sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at 5% -5%, #d1f6ff 0%, transparent 30%),
-    radial-gradient(circle at 100% 0%, #d6f9e4 0%, transparent 30%),
+    radial-gradient(circle at 5% -5%, #ece5ff 0%, transparent 32%),
+    radial-gradient(circle at 100% 0%, #e6e3ff 0%, transparent 36%),
     var(--page-bg);
   line-height: 1.5;
 }
@@ -55,7 +55,7 @@ input {
 #app {
   width: min(1180px, 100%);
   margin: 0 auto;
-  background: color-mix(in oklab, var(--card) 95%, #f5f8fb 5%);
+  background: #fcfaff;
   border-left: 1px solid var(--line);
   border-right: 1px solid var(--line);
   min-height: 100svh;
@@ -94,5 +94,5 @@ input {
   padding: 26px 20px;
   text-align: center;
   color: var(--muted);
-  background: #fcfeff;
+  background: #ffffff;
 }

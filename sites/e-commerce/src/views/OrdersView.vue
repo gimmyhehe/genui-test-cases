@@ -29,7 +29,7 @@ function formatPrice(amount: number) {
 <template>
   <section class="panel orders">
     <h1 class="section-title">我的订单</h1>
-    <p class="section-desc">订单会保存在当前浏览器会话中，刷新后仍可查看。</p>
+    <p class="section-desc">订单会保存在浏览器本地，刷新后仍可查看。</p>
 
     <div v-if="sortedOrders.length === 0" class="empty-state orders__empty">
       暂无订单记录。<RouterLink to="/products">去下第一单</RouterLink>
@@ -91,8 +91,8 @@ function formatPrice(amount: number) {
 }
 
 .order-card--new {
-  border-color: #14b8a6;
-  box-shadow: 0 0 0 3px #ccfbf1;
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px #ede9fe;
 }
 
 .order-card__head {
