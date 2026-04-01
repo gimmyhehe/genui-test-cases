@@ -67,7 +67,7 @@ function addProduct(product: Product) {
         v-model="keyword"
         type="search"
         class="products-header__search"
-        placeholder="搜索商品或标签，例如：Apple、通勤"
+        placeholder="搜索商品或标签"
       />
       <span class="products-header__count">共 {{ filteredProducts.length }} 件</span>
     </div>
