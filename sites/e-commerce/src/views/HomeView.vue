@@ -34,30 +34,14 @@ function quickAdd(product: Product) {
 
 <template>
   <section class="hero panel">
-    <div>
-      <p class="hero__tag">2026 春季上新</p>
-      <h1 class="section-title hero__title">轻量电商 Demo，支持多页面浏览与下单流程</h1>
-      <p class="section-desc">
-        首页看推荐，商品页筛选，详情页加购，购物车结算后可在订单页查看结果。
-      </p>
-      <div class="hero__actions">
-        <RouterLink to="/products" class="hero__primary">去逛商品</RouterLink>
-        <RouterLink to="/cart" class="hero__ghost">查看购物车</RouterLink>
-      </div>
-    </div>
-    <div class="hero__stats">
-      <div>
-        <strong>7+</strong>
-        <span>模拟商品</span>
-      </div>
-      <div>
-        <strong>5</strong>
-        <span>页面路由</span>
-      </div>
-      <div>
-        <strong>100%</strong>
-        <span>本地图片</span>
-      </div>
+    <p class="hero__tag">2026 春季上新</p>
+    <h1 class="section-title hero__title">轻量电商 Demo，支持多页面浏览与下单流程</h1>
+    <p class="section-desc">
+      首页看推荐，商品页筛选，详情页加购，购物车结算后可在订单页查看结果。
+    </p>
+    <div class="hero__actions">
+      <RouterLink to="/products" class="hero__primary">去逛商品</RouterLink>
+      <RouterLink to="/cart" class="hero__ghost">查看购物车</RouterLink>
     </div>
   </section>
 
@@ -70,7 +54,16 @@ function quickAdd(product: Product) {
       <ProductCard
         v-for="product in featured"
         :key="product.id"
-        :product="product"
+        :id="product.id"
+        :title="product.title"
+        :price="product.price"
+        :image="product.image"
+        :description="product.description"
+        :tags="product.tags"
+        :rating="product.rating"
+        :rating-count="product.ratingCount"
+        :in-stock="product.inStock"
+        :badge-text="product.badgeText"
         @open="goDetail"
         @add="quickAdd"
       />
@@ -81,9 +74,6 @@ function quickAdd(product: Product) {
 <style scoped>
 .hero {
   padding: 28px;
-  display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 24px;
 }
 
 .hero__tag {
@@ -127,38 +117,12 @@ function quickAdd(product: Product) {
   background: #fff;
 }
 
-.hero__stats {
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  padding: 16px;
-  background: linear-gradient(180deg, #faf5ff 0%, #f5f3ff 100%);
-  display: grid;
-  gap: 12px;
-  align-content: center;
-}
-
-.hero__stats div {
-  display: grid;
-  gap: 2px;
-}
-
-.hero__stats strong {
-  color: var(--title);
-  font-size: 24px;
-}
-
-.hero__stats span {
-  font-size: 13px;
-  color: var(--muted);
-}
-
 .featured {
   margin-top: 28px;
 }
 
 @media (max-width: 900px) {
   .hero {
-    grid-template-columns: 1fr;
     padding: 22px;
   }
 }

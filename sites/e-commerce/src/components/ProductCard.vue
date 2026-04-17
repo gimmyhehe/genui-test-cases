@@ -1,39 +1,62 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { Product } from '../types'
 
-defineProps<{
-  product: Product
+const props = defineProps<{
+  id: Product['id']
+  title: Product['title']
+  price: Product['price']
+  image: Product['image']
+  description: Product['description']
+  tags: Product['tags']
+  rating: Product['rating']
+  ratingCount: Product['ratingCount']
+  inStock: Product['inStock']
+  badgeText: Product['badgeText']
 }>()
 
 const emit = defineEmits<{
   open: [product: Product]
   add: [product: Product]
 }>()
+
+const product = computed<Product>(() => ({
+  id: props.id,
+  title: props.title,
+  price: props.price,
+  image: props.image,
+  description: props.description,
+  tags: props.tags,
+  rating: props.rating,
+  ratingCount: props.ratingCount,
+  inStock: props.inStock,
+  badgeText: props.badgeText,
+}))
 </script>
 
 <template>
   <article class="card" @click="emit('open', product)">
     <div class="card__media">
-      <img :src="product.image" :alt="product.title" loading="lazy" />
-      <span v-if="product.badgeText" class="card__badge">{{ product.badgeText }}</span>
+      <img :src="image" :alt="title" loading="lazy" />
+      <span v-if="badgeText" class="card__badge">{{ badgeText }}</span>
     </div>
     <div class="card__body">
-      <h3 class="card__title">{{ product.title }}</h3>
-      <p class="card__desc">{{ product.description }}</p>
+      <h3 class="card__title">{{ title }}</h3>
+      <p class="card__desc">{{ description }}</p>
       <div class="card__meta">
         <span class="card__rating" aria-label="评分">
-          ★ {{ product.rating.toFixed(1) }}
-          <span class="card__rating-count">({{ product.ratingCount.toLocaleString() }})</span>
+          ★ {{ rating?.toFixed(1) }}
+          <span class="card__rating-count">({{ ratingCount?.toLocaleString() }})</span>
         </span>
-        <span v-if="!product.inStock" class="card__stock card__stock--out">缺货</span>
+        <span v-if="!inStock" class="card__stock card__stock--out">缺货</span>
         <span v-else class="card__stock">有货</span>
       </div>
       <div class="card__footer">
-        <span class="card__price">¥{{ product.price.toLocaleString() }}</span>
+        <span class="card__price">¥{{ price?.toLocaleString() }}</span>
         <button
           type="button"
           class="card__btn"
-          :disabled="!product.inStock"
+          :disabled="!inStock"
           @click.stop="emit('add', product)"
         >
           加入购物车

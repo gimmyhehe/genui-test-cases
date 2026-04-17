@@ -92,7 +92,16 @@ function addProduct(product: Product) {
     <ProductCard
       v-for="product in filteredProducts"
       :key="product.id"
-      :product="product"
+      :id="product.id"
+      :title="product.title"
+      :price="product.price"
+      :image="product.image"
+      :description="product.description"
+      :tags="product.tags"
+      :rating="product.rating"
+      :rating-count="product.ratingCount"
+      :in-stock="product.inStock"
+      :badge-text="product.badgeText"
       @open="openProduct"
       @add="addProduct"
     />
