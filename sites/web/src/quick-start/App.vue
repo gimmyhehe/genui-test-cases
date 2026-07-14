@@ -3,11 +3,11 @@ import { ref } from 'vue';
 import { GenuiChat, GenuiConfigProvider } from '@opentiny/genui-sdk-vue';
 
 const url = 'http://localhost:3100/chat/completions';
-const model = ref('deepseek-r1-250528');
+const model = ref('deepseek-v4-flash');
 const temperature = ref(0.7);
 const theme = ref<'dark' | 'lite' | 'light'>('light');
 const chatConfig = {
-  showThinkingResult: false,
+  showThinkingResult: true,
 }
 </script>
 

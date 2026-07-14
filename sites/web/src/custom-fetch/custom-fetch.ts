@@ -112,6 +112,9 @@ export function createOpenAICustomFetch(config: OpenAIConfig): CustomRequest {
               const stream = await openai.chat.completions.create(
                 {
                   model: 'deepseek-v3.2',
+                  thinking: {
+                    type: 'enabled'
+                  },
                   messages: currentMessages,
                   temperature,
                   tools: tools.length > 0 ? tools : undefined,
