@@ -10,6 +10,9 @@ export async function fetchSchemaStream(
       body: JSON.stringify({
         messages: [{ role: 'user', content: userInput }],
         model: 'deepseek-v4-flash',
+        thinking: {
+          type: 'disabled'
+        },
         stream: true,
         metadata: {
           tinygenui: JSON.stringify({
