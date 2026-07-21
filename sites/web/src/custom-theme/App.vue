@@ -2,7 +2,7 @@
     <div class="app">
       <GenuiConfigProvider theme="light" id="my-custom-theme">
         <div class="my-custom-theme">
-          <GenuiChat :url="url" model="deepseek-v3.2" :messages="messages" />
+          <GenuiChat :url="url" model="deepseek-v4-flash" :messages="messages" />
         </div>
       </GenuiConfigProvider>
     </div>

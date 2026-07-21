@@ -7,7 +7,7 @@
         ref="chat"
         url="http://localhost:3100/"
         :customFetch="defaultCustomFetch"
-        model="deepseek-v3.2"
+        model="deepseek-v4-flash"
         :temperature="0.5"
         :chat-config="config"
       />

@@ -111,9 +111,9 @@ export function createOpenAICustomFetch(config: OpenAIConfig): CustomRequest {
               // 创建流式请求
               const stream = await openai.chat.completions.create(
                 {
-                  model: 'deepseek-v3.2',
+                  model: 'deepseek-v4-flash',
                   thinking: {
-                    type: 'enabled'
+                    type: 'disabled',
                   },
                   messages: currentMessages,
                   temperature,

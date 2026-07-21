@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { GenuiChat } from '@opentiny/genui-sdk-vue';
 
 const url = 'http://localhost:3100/chat/completions';
-const model = ref('deepseek-v3.2');
+const model = ref('deepseek-v4-flash');
 const temperature = ref(0.7);
 </script>
 
