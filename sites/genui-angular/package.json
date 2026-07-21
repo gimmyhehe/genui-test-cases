@@ -19,6 +19,7 @@
     "@angular/router": "^21.2.0",
     "@opentiny/genui-sdk-angular": "1.3.0-alpha.3",
     "@opentiny/genui-sdk-materials-angular-opentiny-ng": "1.3.0-alpha.3",
+    "@opentiny/genui-sdk-core": "1.3.0-alpha.3",
     "@opentiny/ng-themes": "^1.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
