@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { GenuiRenderer } from '@opentiny/genui-sdk-angular';
+import { GenuiConfigProvider, GenuiRenderer } from '@opentiny/genui-sdk-angular';
+import { materials } from '@opentiny/genui-sdk-materials-angular-opentiny-ng/materials';
 import { fetchSchemaStream } from '../../fetch-schema-stream';
 
 @Component({
   selector: 'genui-example',
-  imports: [FormsModule, GenuiRenderer],
+  imports: [FormsModule, GenuiConfigProvider, GenuiRenderer],
   template: `
     <div class="demo-container">
       <div class="input-group">
@@ -16,8 +17,11 @@ import { fetchSchemaStream } from '../../fetch-schema-stream';
           (keyup.enter)="handleSend()"
         />
         <button (click)="handleSend()">发送</button>
+        <button (click)="handlePrint(schema)">打印</button>
       </div>
-      <genui-renderer [content]="schema"></genui-renderer>
+      <genui-config-provider [materials]="activeMaterials">
+        <genui-renderer [content]="schema"> </genui-renderer>
+      </genui-config-provider>
     </div>
   `,
   styles: [
@@ -54,8 +58,9 @@ import { fetchSchemaStream } from '../../fetch-schema-stream';
 export class GenuiExample {
   inputText = '';
   schema = '';
+  rendererKey = '';
   generating = false;
-
+  protected readonly activeMaterials = materials;
   async handleSend() {
     if (!this.inputText.trim() || this.generating) return;
 
@@ -70,12 +75,15 @@ export class GenuiExample {
         userInput,
         (schemaChunk: string) => {
           this.schema += schemaChunk;
-        }
+        },
       );
     } catch (error) {
       console.error('请求失败:', error);
     } finally {
       this.generating = false;
     }
+  }
+  handlePrint(schema: any) {
+    console.log(schema);
   }
 }
