@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { GenuiChat, GenuiConfigProvider } from '@opentiny/genui-sdk-vue';
+import { GenuiLegacyChat } from '@opentiny/genui-sdk-vue/legacy-chat';
+import { materials } from '@opentiny/genui-sdk-materials-vue-opentiny-vue/materials';
 
 const url = 'http://localhost:3100/chat/completions';
 const model = ref('deepseek-v4-flash');
@@ -12,8 +14,8 @@ const chatConfig = {
 </script>
 
 <template>
-  <GenuiConfigProvider :theme="theme">
-    <GenuiChat :url="url" :model="model" :temperature="temperature" :chat-config="chatConfig" >
+  <GenuiConfigProvider :theme="theme" :material="materials"> 
+    <GenuiChat :url="url" :model="model" :temperature="temperature" :chat-config="chatConfig">
       <template #empty>
         <div class="empty-text">欢迎使用生成式UI</div>
       </template>
