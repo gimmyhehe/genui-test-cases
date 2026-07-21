@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import { ref, computed, h, reactive } from 'vue';
-import { GenuiRenderer } from '@opentiny/genui-sdk-vue';
+import { GenuiRenderer } from '@opentiny/genui-sdk-vue/renderer';
+import { GenuiConfigProvider } from '@opentiny/genui-sdk-vue/config-provider';
+import { materials } from '@opentiny/genui-sdk-materials-vue-opentiny-vue/materials';
 import { TrBubbleList, TrSender, TrBubbleProvider, BubbleMarkdownContentRenderer } from '@opentiny/tiny-robot';
 import { AIClient, GeneratingStatus, STATUS } from '@opentiny/tiny-robot-kit';
 import type { ChatMessage } from '@opentiny/tiny-robot-kit';
 import '@opentiny/tiny-robot/dist/style.css';
 import type { IRendererProps } from '@opentiny/genui-sdk-vue';
-import { CustomModelProvider } from './CustomModelProvider'; // 引入上面定义的 CustomModelProvider
+import { CustomModelProvider } from './CustomModelProvider';
 
-// 初始化 AI 客户端
 const client = new AIClient({
   provider: 'custom',
   providerImplementation: new CustomModelProvider('http://localhost:3100/chat/completions'),
 });
 
-// 消息管理
 const messages = ref<ChatMessage[]>([]);
 const inputMessage = ref('');
 const messageState = reactive({ status: STATUS.INIT, errorMsg: null as any });
@@ -22,7 +22,6 @@ let abortController: AbortController | null = null;
 
 const generating = computed(() => GeneratingStatus.includes(messageState.status));
 
-// 发送消息
 const sendMessage = async (messageContent: string) => {
   if (generating.value || !messageContent.trim()) return;
 
@@ -68,13 +67,11 @@ const sendMessage = async (messageContent: string) => {
   }
 };
 
-// 取消请求
 const abortRequest = () => {
   abortController?.abort();
   messageState.status = STATUS.FINISHED;
 };
 
-// 配置消息渲染器
 const markdownRenderer = new BubbleMarkdownContentRenderer({
   defaultAttrs: { class: 'markdown-content' },
 });
@@ -102,7 +99,6 @@ const messageRenderers = {
   markdown: markdownRenderer,
 };
 
-// 处理发送消息 - TrSender 的 @submit 事件直接传入输入内容
 const handleSubmit = (content: string) => {
   sendMessage(content);
 };
@@ -119,22 +115,24 @@ const roles = {
 </script>
 
 <template>
-  <div class="chat-container">
-    <div class="messages-container">
-      <TrBubbleProvider :content-renderers="messageRenderers">
-        <TrBubbleList :items="messages" :roles="roles" />
-      </TrBubbleProvider>
+  <GenuiConfigProvider :materials="materials">
+    <div class="chat-container">
+      <div class="messages-container">
+        <TrBubbleProvider :content-renderers="messageRenderers">
+          <TrBubbleList :items="messages" :roles="roles" />
+        </TrBubbleProvider>
+      </div>
+      <div class="sender-container">
+        <TrSender
+          v-model="inputMessage"
+          :loading="generating"
+          :placeholder="generating ? '思考中...' : '请输入消息'"
+          @submit="handleSubmit"
+          @cancel="abortRequest"
+        />
+      </div>
     </div>
-    <div class="sender-container">
-      <TrSender
-        v-model="inputMessage"
-        :loading="generating"
-        :placeholder="generating ? '思考中...' : '请输入消息'"
-        @submit="handleSubmit"
-        @cancel="abortRequest"
-      />
-    </div>
-  </div>
+  </GenuiConfigProvider>
 </template>
 
 <style scoped>
