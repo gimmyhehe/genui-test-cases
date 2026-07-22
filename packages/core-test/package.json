@@ -9,8 +9,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@opentiny/genui-sdk-core": "1.3.0-alpha.3",
-    "@opentiny/genui-sdk-materials-vue-opentiny-vue": "1.3.0-alpha.3"
+    "@opentiny/genui-sdk-core": "1.3.0-alpha.4",
+    "@opentiny/genui-sdk-materials-vue-opentiny-vue": "1.3.0-alpha.4"
   },
   "devDependencies": {
     "typescript": "~5.8.3",
