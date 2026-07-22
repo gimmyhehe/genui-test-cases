@@ -12,8 +12,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { GenuiRenderer } from '@opentiny/genui-sdk-vue/renderer';
-import { GenuiConfigProvider } from '@opentiny/genui-sdk-vue/config-provider';
+import { GenuiRenderer, GenuiConfigProvider } from '@opentiny/genui-sdk-vue';
+import { repairJson } from '@opentiny/genui-sdk-core';
 import { materials } from '@opentiny/genui-sdk-materials-vue-opentiny-vue/materials';
 import { fetchSchemaStream } from './fetch-schema-stream';
 
@@ -21,6 +21,24 @@ const inputText = ref('');
 const schema = ref<any>({ componentName: 'Page', children: [] });
 const rendererKey = ref(0);
 const generating = ref(false);
+
+const { value } = repairJson(`{
+  "componentName": "Page",
+  "state": {
+    "formData": {
+      "username": "",
+      "password": ""
+    }
+  },
+  "refs": {
+    "loginFormRef": null
+  },
+  "methods": {
+    "handleLogin": {
+      "type": "JSFunction",
+      "value": "function handleLogin() {\n  this.ref`)
+
+      console.log(value)
 
 const handleSend = async () => {
   if (!inputText.value.trim() || generating.value) return;
