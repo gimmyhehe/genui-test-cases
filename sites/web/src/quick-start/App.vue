@@ -9,12 +9,12 @@ const model = ref('deepseek-v4-flash');
 const temperature = ref(0.7);
 const theme = ref<'dark' | 'lite' | 'light'>('light');
 const chatConfig = {
-  showThinkingResult: true,
+  showThinkingResult: false,
 }
 </script>
 
 <template>
-  <GenuiConfigProvider :theme="theme" :material="materials"> 
+  <GenuiConfigProvider :theme="theme" :materials="materials"> 
     <GenuiChat :url="url" :model="model" :temperature="temperature" :chat-config="chatConfig">
       <template #empty>
         <div class="empty-text">欢迎使用生成式UI</div>
