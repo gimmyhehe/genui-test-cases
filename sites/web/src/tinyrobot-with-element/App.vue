@@ -1,0 +1,167 @@
+<script setup lang="ts">
+import { ref, computed, h, reactive } from 'vue';
+import { genPrompt } from '@opentiny/genui-sdk-core';
+import { GenuiRenderer } from '@opentiny/genui-sdk-vue/renderer';
+import { GenuiConfigProvider } from '@opentiny/genui-sdk-vue/config-provider';
+import { materials } from '@opentiny/genui-sdk-materials-vue-element-plus/materials';
+import { materialsMeta } from '@opentiny/genui-sdk-materials-vue-element-plus/meta';
+import { TrBubbleList, TrSender, TrBubbleProvider, BubbleMarkdownContentRenderer } from '@opentiny/tiny-robot';
+import { AIClient, GeneratingStatus, STATUS } from '@opentiny/tiny-robot-kit';
+import type { ChatMessage } from '@opentiny/tiny-robot-kit';
+import '@opentiny/tiny-robot/dist/style.css';
+import 'element-plus/dist/index.css';
+import type { IRendererProps } from '@opentiny/genui-sdk-vue';
+import { CustomModelProvider } from './CustomModelProvider';
+
+const systemPrompt = genPrompt('Vue', materialsMeta);
+
+const client = new AIClient({
+  provider: 'custom',
+  providerImplementation: new CustomModelProvider({
+    url: 'https://chat.bytedev.site/api/v1/llm/chat/completions',
+    apiKey: 'sk-trial',
+    systemPrompt,
+  }),
+});
+
+const messages = ref<ChatMessage[]>([]);
+const inputMessage = ref('');
+const messageState = reactive({ status: STATUS.INIT, errorMsg: null as any });
+let abortController: AbortController | null = null;
+
+const generating = computed(() => GeneratingStatus.includes(messageState.status));
+
+const sendMessage = async (messageContent: string) => {
+  if (generating.value || !messageContent.trim()) return;
+
+  const userMessage: ChatMessage = {
+    role: 'user',
+    content: messageContent,
+  };
+  messages.value.push(userMessage);
+
+  messageState.status = STATUS.PROCESSING;
+  abortController = new AbortController();
+
+  try {
+    await client.chatStream(
+      {
+        messages: messages.value,
+        options: { stream: true, signal: abortController.signal },
+      },
+      {
+        onData: (data: any) => {
+          messageState.status = STATUS.STREAMING;
+          const lastMessage = messages.value[messages.value.length - 1];
+          if (lastMessage?.role === 'assistant') {
+            Object.assign(lastMessage, data);
+          } else {
+            messages.value.push(data);
+          }
+        },
+        onError: (error: any) => {
+          messageState.status = STATUS.ERROR;
+          messageState.errorMsg = error;
+          console.error('Stream error:', error);
+        },
+        onDone: () => {
+          messageState.status = STATUS.FINISHED;
+        },
+      },
+    );
+  } catch (error) {
+    messageState.status = STATUS.ERROR;
+  } finally {
+    abortController = null;
+  }
+};
+
+const abortRequest = () => {
+  abortController?.abort();
+  messageState.status = STATUS.FINISHED;
+};
+
+const markdownRenderer = new BubbleMarkdownContentRenderer({
+  defaultAttrs: { class: 'markdown-content' },
+});
+
+const lastSchemaCardId = computed(() => {
+  const lastMsg = messages.value[messages.value.length - 1];
+  if (lastMsg?.role !== 'assistant') return null;
+  const items = (lastMsg as any).messages;
+  if (!Array.isArray(items) || !items.length) return null;
+  const schemaCard = items.find((m: any) => m.type === 'schema-card');
+  return schemaCard?.id || null;
+});
+
+const messageRenderers = {
+  'schema-card': (props: IRendererProps) => {
+    return h(
+      'div',
+      {},
+      h(GenuiRenderer, {
+        ...props,
+        generating: lastSchemaCardId.value === props.id ? generating.value : false,
+      }),
+    );
+  },
+  markdown: markdownRenderer,
+};
+
+const handleSubmit = (content: string) => {
+  sendMessage(content);
+};
+
+const roles = {
+  user: {
+    placement: 'end',
+  },
+  assistant: {
+    placement: 'start',
+    customContentField: 'messages',
+  },
+};
+</script>
+
+<template>
+  <GenuiConfigProvider :materials="materials">
+    <div class="chat-container">
+      <div class="messages-container">
+        <TrBubbleProvider :content-renderers="messageRenderers">
+          <TrBubbleList :items="messages" :roles="roles" />
+        </TrBubbleProvider>
+      </div>
+      <div class="sender-container">
+        <TrSender
+          v-model="inputMessage"
+          :loading="generating"
+          :placeholder="generating ? '思考中...' : '请输入消息'"
+          @submit="handleSubmit"
+          @cancel="abortRequest"
+        />
+      </div>
+    </div>
+  </GenuiConfigProvider>
+</template>
+
+<style scoped>
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #f5f5f5;
+}
+
+.messages-container {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+}
+
+.sender-container {
+  flex-shrink: 0;
+  padding: 16px;
+  background: #fff;
+  border-top: 1px solid #e5e5e5;
+}
+</style>
