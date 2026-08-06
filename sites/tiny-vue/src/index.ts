@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import '@opentiny/vue-theme/index.css';
-import App from './App.vue';
+import App from './CodeGen.vue';
 import './style.css';
 
 export function bootstrap() {
