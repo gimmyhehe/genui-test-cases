@@ -7,38 +7,128 @@
       </div>
       <GenuiRenderer :content="schema" :key="rendererKey" />
     </div>
+    <GenuiLegacyRenderer :content="schema" :key="rendererKey" />
   </GenuiConfigProvider>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { GenuiRenderer, GenuiConfigProvider } from '@opentiny/genui-sdk-vue';
+import { GenuiRenderer, GenuiConfigProvider, GenuiLegacyRenderer } from '@opentiny/genui-sdk-vue';
 import { repairJson } from '@opentiny/genui-sdk-core';
 import { materials } from '@opentiny/genui-sdk-materials-vue-opentiny-vue/materials';
 import { fetchSchemaStream } from './fetch-schema-stream';
 
 const inputText = ref('');
-const schema = ref<any>({ componentName: 'Page', children: [] });
-const rendererKey = ref(0);
-const generating = ref(false);
-
-const { value } = repairJson(`{
+const schema = ref<any>({
   "componentName": "Page",
   "state": {
-    "formData": {
-      "username": "",
-      "password": ""
+    "selectValue": "",
+    "options": [],
+    "loading": false,
+    "allOptions": [
+      {
+        "value": "1",
+        "label": "选项1"
+      },
+      {
+        "value": "2",
+        "label": "选项2"
+      },
+      {
+        "value": "3",
+        "label": "选项3"
+      }
+    ]
+  },
+  "lifeCycles": {
+    "onMounted": {
+      "type": "JSFunction",
+      "value": "function () { console.log(123);this.remoteMethod() }"
     }
   },
-  "refs": {
-    "loginFormRef": null
-  },
   "methods": {
-    "handleLogin": {
+    "handleExpandAll": {
       "type": "JSFunction",
-      "value": "function handleLogin() {\n  this.ref`)
-
-      console.log(value)
+      "value": "function handleExpandAll() { console.log('展开全部') }"
+    },
+    "remoteMethod": {
+      "type": "JSFunction",
+      "value": "function remoteMethod(query) { if (query !== undefined) { this.state.loading = true; setTimeout(() => { this.state.loading = false; this.state.options = this.state.allOptions.filter((item) => { return item.label.toLowerCase().includes(query.toLowerCase()) }); }, 200); } else { this.state.options = this.state.allOptions; } }"
+    }
+  },
+  "children": [
+    {
+      "componentName": "TinyCard",
+      "children": [
+        {
+          "componentName": "TinySelect",
+          "props": {
+            "modelValue": {
+              "type": "JSExpression",
+              "model": true,
+              "value": "this.state.selectValue"
+            },
+            "placeholder": "请选择",
+            "searchable": true,
+            "remote": true,
+            "options": {
+              "type": "JSExpression",
+              "value": "this.state.options"
+            },
+            "loading": {
+              "type": "JSExpression",
+              "value": "this.state.loading"
+            },
+            "onRemoteQuery": {
+              "type": "JSExpression",
+              "value": "this.remoteMethod"
+            }
+          },
+          "children": [
+            {
+              "componentName": "Template",
+              "props": {
+                "slot": "footer"
+              },
+              "children": [
+                {
+                  "componentName": "div",
+                  "props": {
+                    "style": "text-align: center; padding: 8px 0; cursor: pointer;"
+                  },
+                  "children": [
+                    {
+                      "componentName": "TinyButton",
+                      "props": {
+                        "text": "展开全部",
+                        "type": "text",
+                        "onClick": {
+                          "type": "JSExpression",
+                          "value": "this.handleExpandAll"
+                        }
+                      },
+                      "index": 0,
+                      "id": "28a64000ea6e4dfd"
+                    }
+                  ],
+                  "index": 0,
+                  "id": "be12180155f148cc"
+                }
+              ]
+            }
+          ],
+          "index": 0,
+          "id": "1e019090e5c54a27"
+        }
+      ],
+      "index": 0,
+      "id": "02784db5f951437f"
+    }
+  ],
+  "id": "68b1fd64ae994169"
+});
+const rendererKey = ref(0);
+const generating = ref(false);
 
 const handleSend = async () => {
   if (!inputText.value.trim() || generating.value) return;

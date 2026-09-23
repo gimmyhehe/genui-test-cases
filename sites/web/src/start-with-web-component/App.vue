@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { fetchSchemaStream } from './fetch-schema-stream';
-import '../../../../../packages/frameworks/vue/output/web-component/genui-renderer.js';
+import './genui-renderer';
 
 const inputText = ref('');
 const schema = ref<any>({
