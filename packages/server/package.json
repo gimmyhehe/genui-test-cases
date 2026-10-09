@@ -1,19 +1,19 @@
 {
-    "name": "genui-sdk-server",
-    "version": "1.0.0",
-    "description": "GenUI SDK Server",
-    "main": "index.js",
-    "type": "module",
-    "scripts": {
-        "dev": "tsx watch src/start.ts",
-        "start": "node index.js"
-    },
-    "dependencies": {
-        "@opentiny/genui-sdk-server": "1.4.0-alpha.1",
-        "@opentiny/genui-sdk-materials-react-antd": "1.4.0-alpha.1",
-        "cors": "^2.8.5",
-        "dotenv": "^16.6.1",
-        "express": "^5.2.1",
-        "tsx": "^3.12.7"
-    }
+  "name": "genui-sdk-server",
+  "version": "1.0.0",
+  "description": "GenUI SDK Server",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/start.ts",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@opentiny/genui-sdk-server": "1.4.0-alpha.3",
+    "@opentiny/genui-sdk-materials-react-antd": "1.4.0-alpha.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^5.2.1",
+    "tsx": "^3.12.7"
+  }
 }

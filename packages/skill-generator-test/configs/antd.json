@@ -1,0 +1,11 @@
+{
+  "framework": "react",
+  "materialsMetaModule": "@opentiny/genui-sdk-materials-react-antd/meta",
+  "materialsMetaExport": "materialsMeta",
+  "skillDirs": ["../out-skill/cli/antd"],
+  "skillBodyFormatter": "genui-schema-json",
+  "referenceSubdir": "generated",
+  "syncComponentsIndex": true,
+  "prune": true,
+  "flatPrompt": false
+}

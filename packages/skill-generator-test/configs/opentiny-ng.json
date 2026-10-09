@@ -1,0 +1,11 @@
+{
+  "framework": "angular",
+  "materialsMetaModule": "@opentiny/genui-sdk-materials-angular-opentiny-ng/meta",
+  "materialsMetaExport": "materialsMeta",
+  "skillDirs": ["../out-skill/cli/opentiny-ng"],
+  "skillBodyFormatter": "genui-schema-json",
+  "referenceSubdir": "generated",
+  "syncComponentsIndex": true,
+  "prune": true,
+  "flatPrompt": false
+}

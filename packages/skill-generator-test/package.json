@@ -1,0 +1,36 @@
+{
+  "name": "skill-generator-test",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Verify @opentiny/genui-sdk-skill-generator API examples from official docs",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "gen:skill": "node --experimental-strip-types src/gen-skill.ts",
+    "gen:skill:opentiny-vue": "node --experimental-strip-types src/gen-skill.ts opentiny-vue",
+    "gen:skill:element-plus": "node --experimental-strip-types src/gen-skill.ts element-plus",
+    "gen:skill:opentiny-ng": "node --experimental-strip-types src/gen-skill.ts opentiny-ng",
+    "gen:skill:antd": "node --experimental-strip-types src/gen-skill.ts antd",
+    "gen:skill:cli": "node --experimental-strip-types src/gen-skill-cli.ts",
+    "gen:skill:cli:opentiny-vue": "node --experimental-strip-types src/gen-skill-cli.ts opentiny-vue",
+    "gen:skill:cli:element-plus": "node --experimental-strip-types src/gen-skill-cli.ts element-plus",
+    "gen:skill:cli:opentiny-ng": "node --experimental-strip-types src/gen-skill-cli.ts opentiny-ng",
+    "gen:skill:cli:antd": "node --experimental-strip-types src/gen-skill-cli.ts antd",
+    "gen:skill:cli:flat": "node node_modules/@opentiny/genui-sdk-skill-generator/dist/cli.js --config configs/antd-flat.json"
+  },
+  "dependencies": {
+    "@opentiny/genui-sdk-skill-generator": "1.4.0-alpha.3",
+    "@opentiny/genui-sdk-core": "1.4.0-alpha.3",
+    "@opentiny/genui-sdk-materials-vue-opentiny-vue": "1.4.0-alpha.3",
+    "@opentiny/genui-sdk-materials-vue-element-plus": "1.4.0-alpha.3",
+    "@opentiny/genui-sdk-materials-angular-opentiny-ng": "1.4.0-alpha.3",
+    "@opentiny/genui-sdk-materials-react-antd": "1.4.0-alpha.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.5",
+    "typescript": "~5.8.3",
+    "vitest": "^3.0.0"
+  }
+}

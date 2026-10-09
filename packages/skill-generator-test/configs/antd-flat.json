@@ -1,0 +1,7 @@
+{
+  "framework": "react",
+  "materialsMetaModule": "@opentiny/genui-sdk-materials-react-antd/meta",
+  "materialsMetaExport": "materialsMeta",
+  "skillDirs": ["../out-skill/cli/antd-flat"],
+  "flatPrompt": true
+}

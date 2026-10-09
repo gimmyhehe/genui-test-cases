@@ -1,0 +1,10 @@
+{
+  "framework": "vue",
+  "materialsMetaModule": "@opentiny/genui-sdk-materials-vue-element-plus/meta",
+  "skillDirs": ["../out-skill/cli/element-plus"],
+  "skillBodyFormatter": "genui-schema-json",
+  "referenceSubdir": "generated",
+  "syncComponentsIndex": true,
+  "prune": true,
+  "flatPrompt": false
+}

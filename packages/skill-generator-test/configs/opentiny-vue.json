@@ -1,0 +1,10 @@
+{
+  "framework": "vue",
+  "materialsMetaModule": "@opentiny/genui-sdk-materials-vue-opentiny-vue/meta",
+  "skillDirs": ["../out-skill/cli/opentiny-vue"],
+  "skillBodyFormatter": "genui-schema-json",
+  "referenceSubdir": "generated",
+  "syncComponentsIndex": true,
+  "prune": true,
+  "flatPrompt": false
+}
