@@ -1,6 +1,6 @@
 <template>
     <div class="app">
-      <GenuiConfigProvider theme="light" id="my-custom-theme">
+      <GenuiConfigProvider theme="light" id="my-custom-theme" :materials="materials">
         <div class="my-custom-theme">
           <GenuiChat :url="url" model="deepseek-v4-flash" :messages="messages" />
         </div>
@@ -10,6 +10,7 @@
   
   <script setup lang="ts">
   import { GenuiConfigProvider, GenuiChat, type IMessage } from '@opentiny/genui-sdk-vue';
+  import { materials } from '@opentiny/genui-sdk-materials-vue-opentiny-vue/materials';
   
   const url = 'https://your-chat-backend/api';
   

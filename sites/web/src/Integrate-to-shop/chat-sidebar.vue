@@ -7,7 +7,9 @@
       </div>
     </div>
     <div class="sidebar-body">
-      <GenuiChat :url="url" :customComponents="customComponents" :customActions="customActions" :messages="messages" />
+      <GenuiConfigProvider :materials="materials">
+        <GenuiChat :url="url" :customComponents="customComponents" :customActions="customActions" :messages="messages" />
+      </GenuiConfigProvider>
     </div>
   </aside>
 
@@ -16,7 +18,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { GenuiChat } from '@opentiny/genui-sdk-vue';
+import { GenuiChat, GenuiConfigProvider } from '@opentiny/genui-sdk-vue';
+import { materials } from '@opentiny/genui-sdk-materials-vue-opentiny-vue/materials';
 
 type AddToCartProduct = {
   id: string;

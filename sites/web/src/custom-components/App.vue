@@ -1,9 +1,12 @@
 <template>
-    <GenuiChat :url="url" :customComponents="customComponents" :messages="messages" />
+    <GenuiConfigProvider :materials="materials">
+      <GenuiChat :url="url" :customComponents="customComponents" :messages="messages" />
+    </GenuiConfigProvider>
   </template>
   
   <script setup lang="ts">
-  import { GenuiChat, type IMessage } from '@opentiny/genui-sdk-vue';
+  import { GenuiConfigProvider, GenuiChat, type IMessage } from '@opentiny/genui-sdk-vue';
+  import { materials } from '@opentiny/genui-sdk-materials-vue-opentiny-vue/materials';
   import ProductCard from './product-card.vue';
   import UserProfile from './user-profile.vue';
   

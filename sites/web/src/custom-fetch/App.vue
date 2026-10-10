@@ -1,8 +1,6 @@
 <template>
   <div class="app-container">
-    <GenuiConfigProvider theme="dark">
-
-
+    <GenuiConfigProvider theme="dark" :materials="materials">
       <GenuiChat
         ref="chat"
         url="http://localhost:3100/"
@@ -19,6 +17,7 @@
 import { ref, onMounted } from 'vue';
 import { GenuiChat } from '@opentiny/genui-sdk-vue/chat';
 import { GenuiConfigProvider } from '@opentiny/genui-sdk-vue/config-provider';
+import { materials } from '@opentiny/genui-sdk-materials-vue-opentiny-vue/materials';
 import { defaultCustomFetch } from './custom-fetch';
 
 const config = {

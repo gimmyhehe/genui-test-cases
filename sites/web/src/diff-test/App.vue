@@ -3,13 +3,16 @@
     <div class="input-group">
       <button @click="changeSchema">改变</button>
     </div>
-    <GenuiRenderer :content="schema" />
+    <GenuiConfigProvider :materials="materials">
+      <GenuiRenderer :content="schema" />
+    </GenuiConfigProvider>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { GenuiRenderer } from '@opentiny/genui-sdk-vue';
+import { GenuiConfigProvider, GenuiRenderer } from '@opentiny/genui-sdk-vue';
+import { materials } from '@opentiny/genui-sdk-materials-vue-opentiny-vue/materials';
 
 const schema1 = `{
   "state": {

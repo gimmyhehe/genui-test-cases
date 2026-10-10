@@ -1,19 +1,22 @@
 <template>
   <div class="app-container">
-    <GenuiChat
-      ref="chat"
-      url="http://localhost:3100/"
-      :customFetch="defaultCustomFetch"
-      model="deepseek-v4-flash"
-      :temperature="0.5"
-      :chat-config="config"
-    />
+    <GenuiConfigProvider :materials="materials">
+      <GenuiChat
+        ref="chat"
+        url="http://localhost:3100/"
+        :customFetch="defaultCustomFetch"
+        model="deepseek-v4-flash"
+        :temperature="0.5"
+        :chat-config="config"
+      />
+    </GenuiConfigProvider>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { GenuiChat } from '@opentiny/genui-sdk-vue';
+import { GenuiChat, GenuiConfigProvider } from '@opentiny/genui-sdk-vue';
+import { materials } from '@opentiny/genui-sdk-materials-vue-opentiny-vue/materials';
 import { defaultCustomFetch } from './custom-fetch';
 
 const config = {

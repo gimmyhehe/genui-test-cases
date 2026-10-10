@@ -2,6 +2,7 @@
 import { computed, ref, type ComponentPublicInstance } from 'vue'
 import { useRouter } from 'vue-router'
 import { GenuiChat, GenuiConfigProvider } from '@opentiny/genui-sdk-vue'
+import { materials } from '@opentiny/genui-sdk-materials-vue-opentiny-vue/materials'
 import { useCart, useCartNotice } from '../composables'
 import type { Product } from '../types'
 import { createCustomActions } from '../genui/chat/custom-actions'
@@ -89,7 +90,7 @@ const customActions = computed(() =>
 
           <section class="assistant-drawer__content">
             <div class="assistant-chat">
-              <GenuiConfigProvider :theme="theme">
+              <GenuiConfigProvider :theme="theme" :materials="materials">
                 <GenuiChat
                   ref="chatRef"
                   :url="chatUrl"
