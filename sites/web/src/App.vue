@@ -54,7 +54,7 @@
       <div class="sidebar-footer">
         <span class="status-dot" aria-hidden="true"></span>
         <span>Vue playground</span>
-        <span class="footer-version">v1.3</span>
+        <span class="footer-version">v1.4</span>
       </div>
     </aside>
 

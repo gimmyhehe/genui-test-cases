@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { GenuiChat, GenuiConfigProvider } from '@opentiny/genui-sdk-vue';
+import { GenuiLegacyChat as GenuiChat, GenuiLegacyConfigProvider as GenuiConfigProvider } from '@opentiny/genui-sdk-vue';
 import { customFetch } from './custom-fetch';
 import SchemaFooter from './SchemaFooter.vue';
 
 const url = 'http://localhost:3100/chat/completions';
 const model = ref('deepseek-v4-pro');
 const temperature = ref(0.7);
-const theme = ref<'dark' | 'lite' | 'light'>('light');
+const theme = ref<'dark' | 'lite' | 'light'>('dark');
 const chatConfig = {
   showThinkingResult: true,
 };

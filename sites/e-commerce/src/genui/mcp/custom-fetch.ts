@@ -131,7 +131,7 @@ export function createMcpOpenAICustomFetch(config: OpenAIFetchConfig): CustomFet
                 tools,
                 tool_choice: 'auto',
                 stream: true,
-              },
+              } as unknown as OpenAI.Chat.Completions.ChatCompletionCreateParamsStreaming,
               { signal: options.signal },
             )
 

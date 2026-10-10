@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import type { CustomRequest } from '@opentiny/genui-sdk-vue';
+import type { CustomFetch } from '@opentiny/genui-sdk-vue';
 import { availableTools } from './tools';
 
 /**
@@ -75,7 +75,7 @@ async function executeSingleToolCall(toolCall: any, currentMessages: any[]): Pro
  * @param config OpenAI 配置
  * @returns CustomRequest 函数
  */
-export function createOpenAICustomFetch(config: OpenAIConfig): CustomRequest {
+export function createOpenAICustomFetch(config: OpenAIConfig): CustomFetch {
   return async (
     url: string,
     options: {
@@ -109,22 +109,22 @@ export function createOpenAICustomFetch(config: OpenAIConfig): CustomRequest {
 
             while (stepCount < maxSteps) {
               // 创建流式请求
-              const stream = await openai.chat.completions.create(
-                {
-                  model: 'deepseek-v4-flash',
-                  thinking: {
-                    type: 'disabled',
-                  },
-                  messages: currentMessages,
-                  temperature,
-                  tools: tools.length > 0 ? tools : undefined,
-                  tool_choice: tools.length > 0 ? 'auto' : undefined,
-                  stream: true,
+              // DeepSeek 的 thinking 属于 OpenAI SDK 未声明的扩展参数，这里显式断言后原样透传
+              const requestParams = {
+                model: 'deepseek-v4-flash',
+                messages: currentMessages,
+                temperature,
+                tools: tools.length > 0 ? tools : undefined,
+                tool_choice: tools.length > 0 ? 'auto' : undefined,
+                stream: true,
+                thinking: {
+                  type: 'disabled',
                 },
-                {
-                  signal: options.signal,
-                },
-              );
+              } as unknown as OpenAI.Chat.Completions.ChatCompletionCreateParamsStreaming;
+
+              const stream = await openai.chat.completions.create(requestParams, {
+                signal: options.signal,
+              });
 
               let toolCalls: any[] = [];
               let hasToolCalls = false;

@@ -120,7 +120,7 @@ const roles = {
     placement: 'start',
     customContentField: 'messages',
   },
-};
+} as const;
 </script>
 
 <template>

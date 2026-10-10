@@ -7,7 +7,6 @@
       </div>
       <GenuiRenderer :content="schema" :key="rendererKey" />
     </div>
-    <GenuiLegacyRenderer :content="schema" :key="rendererKey" />
   </GenuiConfigProvider>
 </template>
 

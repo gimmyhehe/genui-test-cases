@@ -1,7 +1,9 @@
 import {
   BaseModelProvider,
   type ChatCompletionRequest,
+  type ChatCompletionResponse,
   type ChatCompletionStreamResponse,
+  type StreamHandler,
 } from '@opentiny/tiny-robot-kit';
 import { PatternExtractor, type IChatMessage } from '@opentiny/genui-sdk-core';
 import { reactive } from 'vue';
@@ -61,15 +63,16 @@ export class CustomModelProvider extends BaseModelProvider {
     super({ provider: 'custom' });
   }
 
+
+  async chat(_request: ChatCompletionRequest): Promise<ChatCompletionResponse> {
+    throw new Error('CustomModelProvider 仅实现了流式对话（chatStream），请使用 chatStream。');
+  }
+
   async chatStream(
     request: ChatCompletionRequest,
-    handler: {
-      onData: (data: ChatCompletionStreamResponse) => void;
-      onDone: () => void;
-      onError: (error: any) => void;
-    },
+    handler: StreamHandler,
   ) {
-    const { onDone, onData } = handler;
+    const { onDone, onData, onError } = handler;
     let response: Response;
 
     try {
@@ -95,7 +98,7 @@ export class CustomModelProvider extends BaseModelProvider {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
     } catch (error) {
-      onDone({ type: 'error', error } as any);
+      onError({ message: error instanceof Error ? error.message : String(error) } as any);
       return;
     }
 

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { GenuiChat } from '@opentiny/genui-sdk-vue';
+import { GenuiChat, type IMessage } from '@opentiny/genui-sdk-vue';
 import { customExamples } from './custom-examples';
 
 const url = 'http://localhost:3100/chat/completions';
 const model = ref('deepseek-v4-flash');
 const temperature = ref(0.7);
-const messages = ref([
+const messages = ref<IMessage[]>([
     {
         role: 'user',
         content: '生成一个数据看板',

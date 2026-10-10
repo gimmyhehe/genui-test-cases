@@ -1,2 +1,111 @@
-<genui-example />
-<router-outlet />
+<div class="playground">
+  <aside class="sidebar" [class.sidebar-open]="sidebarOpen()">
+    <div class="sidebar-header">
+      <a class="brand" href="#/demos/start-with-renderer" (click)="sidebarOpen.set(false)">
+        <span class="brand-mark" aria-hidden="true">A</span>
+        <span>
+          <strong>GenUI</strong>
+          <small>Angular Playground</small>
+        </span>
+      </a>
+      <button class="icon-button sidebar-close" type="button" aria-label="关闭 demo 列表" (click)="sidebarOpen.set(false)">
+        ×
+      </button>
+    </div>
+
+    <div class="sidebar-intro">
+      <div class="eyebrow">EXAMPLES / {{ registry.length }}</div>
+      <h1>探索全部 Demo</h1>
+      <p>选择一个案例，立即查看 GenUI SDK Angular 的能力。</p>
+    </div>
+
+    <label class="search-box">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input
+        type="search"
+        [value]="searchText()"
+        (input)="onSearchInput($event)"
+        placeholder="搜索 demo"
+        aria-label="搜索 demo"
+      />
+      @if (!searchText()) {
+        <kbd>⌘ K</kbd>
+      }
+    </label>
+
+    <nav class="demo-nav" aria-label="Demo 列表">
+      @for (category of visibleCategories(); track category) {
+        <section class="demo-group">
+          <div class="group-title">
+            <span>{{ category }}</span>
+            <span class="group-count">{{ groupedDemos()[category].length }}</span>
+          </div>
+          @for (demo of groupedDemos()[category]; track demo.id) {
+            <button
+              class="demo-link"
+              [class.active]="demo.id === activeDemo().id"
+              type="button"
+              (click)="selectDemo(demo.id)"
+            >
+              <span class="demo-dot" [class]="'dot-' + categoryIndex(category)" aria-hidden="true"></span>
+              <span class="demo-link-copy">
+                <strong>{{ demo.title }}</strong>
+                <small>{{ demo.description }}</small>
+              </span>
+              @if (demo.id === activeDemo().id) {
+                <span class="active-indicator" aria-hidden="true">↗</span>
+              }
+            </button>
+          }
+        </section>
+      }
+      @if (visibleCategories().length === 0) {
+        <div class="empty-search">没有找到匹配的 demo</div>
+      }
+    </nav>
+
+    <div class="sidebar-footer">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span>Angular playground</span>
+      <span class="footer-version">v1.4</span>
+    </div>
+  </aside>
+
+  <div class="workspace">
+    <header class="topbar">
+      <button class="icon-button menu-button" type="button" aria-label="打开 demo 列表" (click)="sidebarOpen.set(true)">
+        ☰
+      </button>
+      <div class="breadcrumbs">
+        <span>Playground</span>
+        <span class="breadcrumb-divider">/</span>
+        <span class="breadcrumb-current">{{ activeDemo().title }}</span>
+      </div>
+      <div class="topbar-actions">
+        <span class="route-hint">{{ activeDemo().category }}</span>
+        <a class="source-link" href="https://github.com/opentiny/genui-sdk" target="_blank" rel="noreferrer">
+          SDK docs <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="demo-area" (click)="sidebarOpen.set(false)">
+      <div class="demo-heading">
+        <div>
+          <div class="demo-overline">{{ activeDemo().category }} · {{ activeDemo().id }}</div>
+          <h2>{{ activeDemo().title }}</h2>
+          <p>{{ activeDemo().description }}</p>
+        </div>
+        <div class="demo-counter">
+          <span class="counter-current">{{ pad(activeIndex() + 1) }}</span>
+          <span class="counter-slash">/</span>
+          <span>{{ pad(registry.length) }}</span>
+        </div>
+      </div>
+
+      <div class="demo-frame">
+        <router-outlet />
+      </div>
+    </main>
+  </div>
+</div>

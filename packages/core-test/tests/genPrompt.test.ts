@@ -69,14 +69,22 @@ describe('genPrompt() — 各技术栈', () => {
     }
   })
 
-  it('Angular：不注入 Vue 表单规则，与 React 规则段落一致', () => {
-    const reactPrompt = genPrompt('React', materials, undefined, slimOptions)
+  it('Angular：不注入 Vue / React 表单规则', () => {
     const angularPrompt = genPrompt('Angular', materials, undefined, slimOptions)
 
     for (const rule of vueFrameworkConfig.rules ?? []) {
       expect(angularPrompt).not.toContain(rule)
     }
-    expect(angularPrompt).toBe(reactPrompt)
+
+    // 1.4.0-alpha.3 起 React 拥有独立的受控组件规则（checkForReactRules），
+    // Angular 仍无框架级规则，因此两者不再是同一段文本。
+    for (const rule of reactFrameworkConfig.rules ?? []) {
+      expect(angularPrompt).not.toContain(rule)
+    }
+
+    for (const rule of materials.rules ?? []) {
+      expect(angularPrompt).toContain(rule)
+    }
   })
 
   it('未知框架名回退 Vue 规则', () => {

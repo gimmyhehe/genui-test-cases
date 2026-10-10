@@ -12,5 +12,10 @@
   "devDependencies": {
     "@babel/parser": "^7.28.3",
     "concurrently": "^9.1.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "@opentiny/vue-theme": "3.31.1"
+    }
   }
 }

@@ -3,8 +3,9 @@
   </template>
   
   <script setup lang="ts">
-  import { GenuiChat } from '@opentiny/genui-sdk-vue';
+  import { GenuiChat, type IMessage } from '@opentiny/genui-sdk-vue';
   import ProductCard from './product-card.vue';
+  import UserProfile from './user-profile.vue';
   
   const url = 'https://your-chat-backend/api';
   
@@ -95,7 +96,7 @@
   ];
   
   // 默认消息，用于展示自定义组件
-  const messages = [
+  const messages: IMessage[] = [
     {
       role: 'user',
       content: '推荐一个双肩包',

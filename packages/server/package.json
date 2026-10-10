@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@opentiny/genui-sdk-server": "1.4.0-alpha.3",
+    "@opentiny/genui-sdk-materials-angular-opentiny-ng": "1.4.0-alpha.3",
     "@opentiny/genui-sdk-materials-react-antd": "1.4.0-alpha.3",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",

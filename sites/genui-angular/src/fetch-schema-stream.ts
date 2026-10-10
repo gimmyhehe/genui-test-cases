@@ -1,6 +1,9 @@
 // fetch-schema-stream.ts
 import { PatternExtractor } from '@opentiny/genui-sdk-core';
 
+/** `packages/server` 为 Angular 单独启动了 tiny-ng 物料服务，端口 3300（框架通过 metadata.tinygenui 指定）。 */
+export const ANGULAR_SERVER_URL = 'http://localhost:3300/chat/completions';
+
 export async function fetchSchemaStream(
   url: string,
   userInput: string,

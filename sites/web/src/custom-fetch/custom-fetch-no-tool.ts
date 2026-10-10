@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import type { CustomRequest } from '@opentiny/genui-sdk-vue';
+import type { CustomFetch } from '@opentiny/genui-sdk-vue';
 import { availableTools } from './tools';
 
 /**
@@ -18,7 +18,7 @@ export interface OpenAIConfig {
  * - 不再在前端执行 / 拼装工具调用结果
  * - OpenAI 返回什么 chunk，就按原样以 SSE data 行流式返回
  */
-export function createOpenAICustomFetch(config: OpenAIConfig): CustomRequest {
+export function createOpenAICustomFetch(config: OpenAIConfig): CustomFetch {
   return async (
     url: string,
     options: {
@@ -52,7 +52,7 @@ export function createOpenAICustomFetch(config: OpenAIConfig): CustomRequest {
                 tools: tools.length > 0 ? tools : undefined,
                 tool_choice: tools.length > 0 ? 'auto' : undefined,
                 stream: true,
-              } as any,
+              } as unknown as OpenAI.Chat.Completions.ChatCompletionCreateParamsStreaming,
               {
                 signal: options.signal,
               },

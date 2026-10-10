@@ -9,11 +9,11 @@
   </template>
   
   <script setup lang="ts">
-  import { GenuiConfigProvider, GenuiChat } from '@opentiny/genui-sdk-vue';
+  import { GenuiConfigProvider, GenuiChat, type IMessage } from '@opentiny/genui-sdk-vue';
   
   const url = 'https://your-chat-backend/api';
   
-  const messages = [
+  const messages: IMessage[] = [
     {
       role: 'user',
       content: '生成一个按钮',

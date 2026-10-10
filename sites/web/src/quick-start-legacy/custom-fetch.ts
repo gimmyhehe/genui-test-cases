@@ -1,6 +1,6 @@
-import type { CustomRequest } from '@opentiny/genui-sdk-vue';
+import type { CustomFetch } from '@opentiny/genui-sdk-vue';
 
-export const customFetch: CustomRequest = async (url, options) => {
+export const customFetch: CustomFetch = async (url, options) => {
   const body = JSON.parse(options.body);
 
   return fetch(url, {
