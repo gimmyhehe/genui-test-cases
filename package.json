@@ -4,14 +4,20 @@
   "description": "GenUI SDK Test Cases",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"pnpm -F genui-sdk-playground-web dev\" \"pnpm -F genui-sdk-server dev\""
+    "dev": "concurrently \"pnpm -F genui-sdk-playground-web dev\" \"pnpm -F genui-sdk-server dev\"",
+    "test": "pnpm -F core-test test && pnpm -F skill-generator-test test && pnpm -F release-verify test",
+    "test:release": "pnpm -F release-verify test",
+    "test:e2e": "pnpm -F e2e-test test",
+    "test:e2e:headed": "pnpm -F e2e-test test:headed",
+    "test:all": "pnpm test && pnpm test:e2e"
   },
   "keywords": [],
   "author": "Gimmyhehe",
   "packageManager": "pnpm@10.12.1",
   "devDependencies": {
     "@babel/parser": "^7.28.3",
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "@opentiny/genui-sdk-integration-skill": "1.4.0-beta.1"
   },
   "pnpm": {
     "overrides": {

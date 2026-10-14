@@ -1,0 +1,19 @@
+{
+  "name": "e2e-test",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Playwright browser end-to-end tests for the GenUI SDK playground (1.4.0-beta.1)",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "install:browser": "playwright install chromium",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^22.13.5"
+  }
+}
