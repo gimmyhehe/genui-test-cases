@@ -21,7 +21,7 @@ test.describe('Playground 冒烟', () => {
     expect(console.errors, `页面加载出现控制台错误:\n${console.errors.join('\n')}`).toEqual([])
   })
 
-  test('侧边栏列出全部 demo 且包含 1.4.0 新增 demo', async ({ page }) => {
+  test('侧边栏列出全部 demo 且包含新增 demo', async ({ page }) => {
     await page.goto('/')
 
     const demoLinks = page.locator('.demo-link')
@@ -30,7 +30,7 @@ test.describe('Playground 冒烟', () => {
     const count = await demoLinks.count()
     expect(count, 'demo 列表数量异常').toBeGreaterThanOrEqual(20)
 
-    // 1.4.0 新增 demo 必须出现在列表里
+    // 新增 demo 必须出现在列表里
     for (const title of [
       'Plus Materials',
       'Theme Switch',

@@ -7,7 +7,7 @@ const makeThemeFactory = (id: string) => () => ({
   apply: () => ({ descriptor: { id } }),
 })
 
-describe('mergeMaterials（1.4.0 新增）', () => {
+describe('mergeMaterials 物料合并', () => {
   it('components 浅合并，后者覆盖同名组件', () => {
     const merged = mergeMaterials(
       { components: { A: 'a1', B: 'b1' } },

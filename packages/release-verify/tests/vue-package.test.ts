@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { repoRoot } from './helpers/repo'
 
-/** 1.4.0-beta.1 的 vue 包必须暴露这些子路径入口。 */
+/** vue 包必须暴露这些子路径入口。 */
 const requiredSubpaths = [
   '.',
   './chat',
@@ -26,7 +26,7 @@ function vuePackageDir() {
   return found
 }
 
-describe('@opentiny/genui-sdk-vue 包结构（1.4.0-beta.1）', () => {
+describe('@opentiny/genui-sdk-vue 包结构', () => {
   const pkg = JSON.parse(readFileSync(join(vuePackageDir(), 'package.json'), 'utf-8'))
 
   it('版本为目标版本', () => {
@@ -60,7 +60,7 @@ describe('@opentiny/genui-sdk-vue 包结构（1.4.0-beta.1）', () => {
   })
 })
 
-describe('code-generator 子路径（1.4.0 新增）', () => {
+describe('code-generator 子路径', () => {
   it('导出 generateCode 与 VueCodeGenerator', async () => {
     const mod = await import('@opentiny/genui-sdk-vue/code-generator')
     expect(mod.generateCode).toBeTypeOf('function')

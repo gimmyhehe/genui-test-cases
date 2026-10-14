@@ -5,22 +5,18 @@ import {
   getStubbedRequests,
   stubChatCompletions,
 } from './helpers/llm-stub'
-import { openDemo, sendMessage } from './helpers/playground'
+import { demoFrame, openDemo, sendMessage } from './helpers/playground'
 
 /**
- * start-with-renderer 的端到端流式渲染测试。
- * LLM 由测试注入的 fetch stub 模拟（见 helpers/llm-stub.ts），验证：
- *  1. 请求契约（stream / model / messages）
- *  2. 分片到达时逐段渲染（不是等全部结束才渲染）
- *  3. [DONE] / 无 [DONE] 都能正常收尾
- *  4. HTTP 500 与非法 SSE 不会让页面崩溃
+ * 流式渲染：Schema 随着 SSE 分片逐步到达时如何增量渲染。
+ * LLM 由注入的 fetch stub 模拟（见 helpers/llm-stub.ts）。
  */
 test.beforeEach(async ({ page }) => {
   await stubChatCompletions(page)
   await openDemo(page, 'start-with-renderer')
 })
 
-test.describe('流式渲染（start-with-renderer）', () => {
+test.describe('流式渲染', () => {
   test('按 OpenAI 规范发送请求', async ({ page }) => {
     await sendMessage(page, '帮我生成一个卡片')
     await expectStubbedRequestCount(page, 1)
@@ -32,29 +28,29 @@ test.describe('流式渲染（start-with-renderer）', () => {
     expect(request.body.messages).toEqual([{ role: 'user', content: '帮我生成一个卡片' }])
   })
 
-  test('SSE 分片到达后增量渲染，最终内容完整', async ({ page }) => {
+  test('分片到达后增量渲染，最终内容完整', async ({ page }) => {
     await sendMessage(page, '生成两段文本')
 
-    await expect(page.getByText('第一段')).toBeVisible()
-    await expect(page.getByText('第二段')).toBeVisible()
+    await expect(demoFrame(page).getByText('第一段')).toBeVisible()
+    await expect(demoFrame(page).getByText('第二段')).toBeVisible()
   })
 
   test('慢速流：第一个分片先渲染，第二个分片随后追加', async ({ page }) => {
     await sendMessage(page, '[slow] 生成两段文本')
 
     // 第一个分片（未闭合的 JSON）已经能渲染出来 —— 证明是增量渲染而不是等流结束
-    await expect(page.getByText('第一段')).toBeVisible()
-    await expect(page.getByText('第二段')).toHaveCount(0)
+    await expect(demoFrame(page).getByText('第一段')).toBeVisible()
+    await expect(demoFrame(page).getByText('第二段')).toHaveCount(0)
 
     // 第二个分片到达后追加
-    await expect(page.getByText('第二段')).toBeVisible()
+    await expect(demoFrame(page).getByText('第二段')).toBeVisible()
   })
 
   test('流结束但没有 [DONE] 时仍能渲染已完成的分片', async ({ page }) => {
     await sendMessage(page, '[no-done] 生成两段文本')
 
-    await expect(page.getByText('第一段')).toBeVisible()
-    await expect(page.getByText('第二段')).toBeVisible()
+    await expect(demoFrame(page).getByText('第一段')).toBeVisible()
+    await expect(demoFrame(page).getByText('第二段')).toBeVisible()
   })
 
   test('后端返回 500 时页面不崩溃且保持可交互', async ({ page }) => {
@@ -66,9 +62,9 @@ test.describe('流式渲染（start-with-renderer）', () => {
     await sendMessage(page, '[http-500] 触发服务端错误')
 
     // 页面没有被破坏：输入框仍可继续使用
-    await expect(page.getByPlaceholder('请输入问题...')).toBeEnabled()
-    await expect(page.getByRole('button', { name: '发送' })).toBeEnabled()
-    await expect(page.getByText('第一段')).toHaveCount(0)
+    await expect(demoFrame(page).locator('input[placeholder="请输入问题..."]')).toBeEnabled()
+    await expect(demoFrame(page).getByRole('button', { name: '发送' })).toBeEnabled()
+    await expect(demoFrame(page).getByText('第一段')).toHaveCount(0)
 
     // 错误被 demo 捕获并打印，而不是抛成未捕获异常
     await expect.poll(() => consoleErrors.join('\n')).toContain('请求失败')
@@ -80,23 +76,23 @@ test.describe('流式渲染（start-with-renderer）', () => {
 
     await sendMessage(page, '[bad-sse] 下发非法数据')
 
-    await expect(page.getByPlaceholder('请输入问题...')).toBeEnabled()
+    await expect(demoFrame(page).locator('input[placeholder="请输入问题..."]')).toBeEnabled()
     expect(pageErrors, `出现未捕获异常: ${pageErrors.join('\n')}`).toEqual([])
   })
 
   test('连续两次生成会替换而不是叠加旧 Schema', async ({ page }) => {
     await sendMessage(page, '第一次生成')
-    await expect(page.getByText('第一段')).toBeVisible()
+    await expect(demoFrame(page).getByText('第一段')).toBeVisible()
 
     // 等第一次的流真正结束（demo 在流结束前会忽略新的发送）
     await expectAllStubbedRequestsCompleted(page)
 
     await sendMessage(page, '第二次生成')
     await expectStubbedRequestCount(page, 2)
-    await expect(page.getByText('第一段')).toBeVisible()
+    await expect(demoFrame(page).getByText('第一段')).toBeVisible()
 
     // 第二次渲染的仍然是单个「第一段」而不是两份
-    await expect(page.getByText('第一段')).toHaveCount(1)
-    await expect(page.getByText('第二段')).toHaveCount(1)
+    await expect(demoFrame(page).getByText('第一段')).toHaveCount(1)
+    await expect(demoFrame(page).getByText('第二段')).toHaveCount(1)
   })
 })

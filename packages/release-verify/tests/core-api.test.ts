@@ -3,7 +3,7 @@ import * as core from '@opentiny/genui-sdk-core'
 
 const api = core as unknown as Record<string, unknown>
 
-/** 1.4.0 之前就存在、必须在 beta 中保持可用的导出。 */
+/** 历史导出：每次发布都必须保持可用。 */
 const baselineExports = [
   'repairJson',
   'safeJsonParse',
@@ -32,7 +32,7 @@ const baselineExports = [
   'getPartialStartRegString',
 ]
 
-/** 1.4.0 新增的框架配置能力。 */
+/** 框架配置能力。 */
 const frameworkConfigExports = [
   'vueFrameworkConfig',
   'reactFrameworkConfig',
@@ -40,16 +40,16 @@ const frameworkConfigExports = [
   'getFrameworkConfig',
 ]
 
-/** 1.4.0 新增的物料合并能力。 */
-const version140Exports = ['mergeMaterials']
+/** 物料合并能力。 */
+const materialsMergeExports = ['mergeMaterials']
 
-describe('core 导出面（1.4.0-beta.1）', () => {
+describe('core 导出面', () => {
   it.each(baselineExports)('历史导出 %s 仍然存在', (name) => {
     expect(api[name], `缺少导出: ${name}`).toBeDefined()
   })
 
-  it.each([...frameworkConfigExports, ...version140Exports])('1.4.0 新增导出 %s 存在', (name) => {
-    expect(api[name], `缺少 1.4.0 新增导出: ${name}`).toBeDefined()
+  it.each([...frameworkConfigExports, ...materialsMergeExports])('新增导出 %s 存在', (name) => {
+    expect(api[name], `缺少导出: ${name}`).toBeDefined()
   })
 
   it('PatternExtractor / SchemaJsonPattern 仍然是构造函数', () => {

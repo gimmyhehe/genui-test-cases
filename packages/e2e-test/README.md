@@ -52,9 +52,31 @@ e2e 通过 `page.addInitScript` 在**浏览器里替换 `window.fetch`**
 
 ## 用例分布
 
+用例按**能力**组织，而不是按版本号。新增版本的能力直接补进对应的能力文件。
+
 | 文件 | 覆盖内容 |
 | --- | --- |
-| `tests/smoke.spec.ts` | 首页加载、默认 demo、侧边栏 demo 列表、搜索过滤、hash 路由直达、未知 id 回退 |
-| `tests/demos.spec.ts` | 23 个 demo 全部能打开且不白屏；10 个离线 demo 控制台零错误 |
-| `tests/renderer-streaming.spec.ts` | 请求契约、SSE 增量渲染、慢速流分片追加、无 `[DONE]` 收尾、HTTP 500 与非法 SSE 不崩溃、重复生成不叠加 |
-| `tests/v140-features.spec.ts` | 1.4.0 新增能力：Plus 物料、`themeFactory` 主题切换、`mergeMaterials` 合并/覆盖、`generateCode` 代码生成、`notify` 提示转发、`GenuiLegacyConfigProvider` 零配置渲染 |
+| `tests/smoke.spec.ts` | 应用外壳：首页加载、默认 demo、侧边栏 demo 列表、搜索过滤、hash 路由直达、未知 id 回退 |
+| `tests/demos.spec.ts` | 23 个 demo 全部能打开且不白屏；14 个离线 demo 控制台零错误 |
+| `tests/streaming.spec.ts` | 流式渲染：请求契约、SSE 增量渲染、慢速流分片追加、无 `[DONE]` 收尾、HTTP 500 与非法 SSE 不崩溃、重复生成不叠加 |
+| `tests/renderer.spec.ts` | 渲染器：Schema 切换（Diff）后渲染保持一致、Web Component（Shadow DOM）渲染与表单输入 |
+| `tests/materials.spec.ts` | 物料：Mini/Standard/Plus 档位、渲染前后动态注入、响应式替换、`mergeMaterials` 合并与覆盖 |
+| `tests/theming.spec.ts` | 主题：`themeFactory` 驱动 light/dark/lite 切换、宿主 CSS 变量覆盖组件样式 |
+| `tests/chat.spec.ts` | 对话：GenuiChat 空态与 SSE 渲染、自定义组件注册与交互、TinyRobot 组合、图片上传入口 |
+| `tests/code-generation.spec.ts` | 代码生成：Schema 反向生成 Vue SFC、编译校验无错误、重置 |
+| `tests/notify.spec.ts` | 提示转发：渲染器内部错误（同步/异步/方法缺失）转发给自定义处理器；内置 notify 不进入宿主列表 |
+| `tests/legacy.spec.ts` | 旧版入口：`GenuiLegacyConfigProvider` 零配置渲染、state/methods、头尾插槽；旧版 GenuiChat API |
+| `tests/integration.spec.ts` | 综合案例：购物车主页面 + 侧边对话助手的购物车业务逻辑 |
+
+## 已知问题（用 `test.fail()` 记录）
+
+Playwright 的 `test.fail()` 表示「这条用例预期会失败」。当前记录了 3 条，都指向同一个问题：
+**`materials` 从「有」换成「另一个」时，已经挂载的 `GenuiRenderer` 不会重新解析组件**
+（从无到有的首次注入是正常的）。
+
+- `materials.spec.ts` › 替换整个 materials 对象后，已渲染的组件跟着切换
+- `materials.spec.ts` › 修改 materials.components 后，已渲染的组件跟着切换
+- `materials.spec.ts` › 切成仅基础物料后，自定义组件从画面上消失
+
+一旦上游修好，这几条会因为「预期失败却通过」而报错，提醒我们删掉 `test.fail()` 标记。
+

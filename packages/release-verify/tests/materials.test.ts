@@ -79,7 +79,7 @@ describe('档位差异体现在 whiteList（Mini ⊂ Standard ⊂ Plus）', () =
     }
   })
 
-  it('Plus 档新增 1.4.0 宣传的组件', () => {
+  it('Plus 档新增的组件都已注册到物料里', () => {
     const added = plus.filter((item) => !standard.includes(item))
     for (const expected of [
       'TinySteps',
@@ -123,7 +123,7 @@ describe('白名单完整性', () => {
   })
 })
 
-describe('themeFactory 主题系统（1.4.0 新增）', () => {
+describe('themeFactory 主题系统', () => {
   it('三档物料都接入了 themeFactory', () => {
     for (const tier of TIERS) {
       expect(typeof (tier.materials as any).themeFactory, `${tier.id} 未接入 themeFactory`).toBe('function')

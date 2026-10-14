@@ -39,9 +39,19 @@ test.describe('全部 demo 可加载', () => {
       // 面包屑与标题跟随路由
       await expect(page.locator('.breadcrumb-current')).not.toBeEmpty()
 
-      // demo 区域必须渲染出内容
-      const frameText = (await page.locator('.demo-frame').innerText()).trim()
-      expect(frameText.length, `${demoId} 的 demo 区域是空的（白屏）`).toBeGreaterThan(0)
+      // demo 区域必须渲染出内容。
+      // 不能只看文字：TinyRobot 这类 demo 初始只有输入框、没有文字。
+      await expect
+        .poll(
+          () =>
+            page.locator('.demo-frame').evaluate((el) => {
+              const text = (el.textContent || '').trim()
+              const controls = el.querySelectorAll('input,textarea,button,select,svg,canvas').length
+              return text.length + controls
+            }),
+          { message: `${demoId} 的 demo 区域是空的（白屏）` },
+        )
+        .toBeGreaterThan(0)
     })
   }
 })
