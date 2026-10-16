@@ -3,7 +3,7 @@ import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 /** 当前这次发布要验证的版本。 */
-export const EXPECTED_VERSION = '1.4.0-beta.1'
+export const EXPECTED_VERSION = '1.4.0'
 
 /** GenUI SDK 的包名前缀。 */
 export const GENUI_PREFIX = '@opentiny/genui-sdk-'

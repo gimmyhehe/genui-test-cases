@@ -104,7 +104,7 @@ describe('pnpm 锁文件一致性', () => {
 })
 
 describe('发行版元信息', () => {
-  it('根工作区依赖 integration-skill 的 beta 版本', () => {
+  it('根工作区依赖 integration-skill 的发行版本', () => {
     const root = workspaces.find((ws) => ws.dir === '.')!
     const spec = { ...root.pkg.dependencies, ...root.pkg.devDependencies }[
       '@opentiny/genui-sdk-integration-skill'

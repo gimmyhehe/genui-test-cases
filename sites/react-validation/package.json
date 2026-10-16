@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@opentiny/genui-sdk-core": "1.4.0-beta.1",
-    "@opentiny/genui-sdk-materials-react-antd": "1.4.0-beta.1",
-    "@opentiny/genui-sdk-react": "1.4.0-beta.1",
+    "@opentiny/genui-sdk-core": "1.4.0",
+    "@opentiny/genui-sdk-materials-react-antd": "1.4.0",
+    "@opentiny/genui-sdk-react": "1.4.0",
     "antd": "^5.24.0",
     "dayjs": "^1.11.10",
     "react": "^19.2.8",

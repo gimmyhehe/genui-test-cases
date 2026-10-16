@@ -1,6 +1,6 @@
 # e2e-test
 
-针对 GenUI SDK playground 的 **Playwright 浏览器端到端测试**，用于验证 `1.4.0-beta.1` 的发布质量。
+针对 GenUI SDK playground 的 **Playwright 浏览器端到端测试**，用于验证 `1.4.0` 的发布质量。
 
 ## 运行
 

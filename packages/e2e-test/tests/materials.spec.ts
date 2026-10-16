@@ -95,7 +95,7 @@ test.describe('物料响应式更新', () => {
     await expect(frame.locator('.meta')).toContainText('模式: 改 components · 当前: B · 已切换 2 次')
   })
 
-  // 已知问题（beta.1）：materials 从「有」换成「另一个」时，已经挂载的 GenuiRenderer
+  // 已知问题：materials 从「有」换成「另一个」时，已经挂载的 GenuiRenderer
   // 不会重新解析组件，画面上仍然是旧物料渲染出来的 [A]。demo 代码本身是对的
   // （switchByReplace 确实替换了整个 ref 对象），所以问题在渲染器侧。
   // 用 test.fails 记录：上游修好后这条会因为「预期失败却通过」而报错，提醒去掉标记。

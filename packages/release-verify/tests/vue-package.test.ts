@@ -30,7 +30,7 @@ describe('@opentiny/genui-sdk-vue 包结构', () => {
   const pkg = JSON.parse(readFileSync(join(vuePackageDir(), 'package.json'), 'utf-8'))
 
   it('版本为目标版本', () => {
-    expect(pkg.version).toBe('1.4.0-beta.1')
+    expect(pkg.version).toBe('1.4.0')
   })
 
   it.each(requiredSubpaths)('导出子路径 %s', (subpath) => {
@@ -55,7 +55,7 @@ describe('@opentiny/genui-sdk-vue 包结构', () => {
     )
     expect(genuiDeps.length).toBeGreaterThan(0)
     for (const [name, version] of genuiDeps) {
-      expect(version, `${name} 的版本与发布版本不一致`).toBe('1.4.0-beta.1')
+      expect(version, `${name} 的版本与发布版本不一致`).toBe('1.4.0')
     }
   })
 })

@@ -57,7 +57,7 @@ describe('框架 peer 依赖兼容性', () => {
   })
 
   /**
-   * 已知问题：@opentiny/genui-sdk-angular@1.4.0-beta.1 仍然声明
+   * 已知问题：@opentiny/genui-sdk-angular@1.4.0 仍然声明
    * peer @angular/core@^20.3.0，而站点已经使用 Angular 21。
    * pnpm install 会报 unmet peer（安装成功但属于不受支持的组合）。
    *

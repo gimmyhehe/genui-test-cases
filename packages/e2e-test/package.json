@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Playwright browser end-to-end tests for the GenUI SDK playground (1.4.0-beta.1)",
+  "description": "Playwright browser end-to-end tests for the GenUI SDK playground (1.4.0)",
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed",

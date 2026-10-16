@@ -10,8 +10,8 @@
     "gen:vue-prompt": "node --experimental-strip-types src/gen-vue-prompt.ts"
   },
   "dependencies": {
-    "@opentiny/genui-sdk-core": "1.4.0-beta.1",
-    "@opentiny/genui-sdk-materials-vue-opentiny-vue": "1.4.0-beta.1"
+    "@opentiny/genui-sdk-core": "1.4.0",
+    "@opentiny/genui-sdk-materials-vue-opentiny-vue": "1.4.0"
   },
   "devDependencies": {
     "typescript": "~5.8.3",
